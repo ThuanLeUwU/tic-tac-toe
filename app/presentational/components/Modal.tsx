@@ -12,7 +12,7 @@ export default function Modal({ isOpen, message, onClose }: ModalProps) {
 
   return (
     <div className="tw-fixed tw-inset-0 tw-flex tw-items-center tw-justify-center tw-bg-black tw-bg-opacity-50">
-      <div>
+      <div className="tw-bg-white tw-p-6 tw-rounded-lg tw-shadow-lg tw-text-center tw-w-80">
         <h2 className="tw-text-2xl tw-font-bold tw-mb-4 tw-text-black">
           {message}
         </h2>
