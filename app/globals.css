@@ -15,7 +15,33 @@
 }
 
 body {
+  display: flex;
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  height: 100vh; /* Đảm bảo toàn bộ chiều cao của trang */
+  margin: 0;
+  background-color: #f8f9fa;
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.board {
+  margin: 25px;
+  width: 500px;
+  height: 500px;
+  border: 5px solid #ccc;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.cell {
+  border: 5px solid #ccc;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 64px;
 }
