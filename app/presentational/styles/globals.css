@@ -16,20 +16,26 @@
 
 body {
   display: flex;
-  justify-content: center; /* Căn giữa theo chiều ngang */
-  align-items: center; /* Căn giữa theo chiều dọc */
-  height: 100vh; /* Đảm bảo toàn bộ chiều cao của trang */
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   margin: 0;
   background-color: #f8f9fa;
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  background-image: url("/night-forest.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .board {
-  margin: 25px;
-  width: 500px;
-  height: 500px;
+  margin: 20px;
+  width: 90vw; /* Chiếm 90% chiều rộng màn hình */
+  max-width: 500px; /* Giữ nguyên kích thước tối đa */
+  height: 90vw; /* Giữ tỷ lệ vuông theo chiều rộng */
+  max-height: 500px;
   border: 5px solid #ccc;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -43,5 +49,12 @@ body {
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  font-size: 64px;
+  font-size: 8vw;
+}
+
+/* Thêm hiệu ứng hover trên desktop */
+@media (min-width: 768px) {
+  .cell:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 }

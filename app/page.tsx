@@ -1,68 +1,71 @@
 "use client";
-import Board from "@/components/Board";
-import Modal from "@/components/Modal";
-import { howToWin } from "@/utils/howToWin";
-import { useEffect, useState } from "react";
+import Board from "@/app/presentational/components/Board";
+import Modal from "@/app/presentational/components/Modal";
+import { Cells } from "@/app/constants/cell";
+import { Scores } from "@/app/constants/score";
+import { howToWin } from "@/app/utils/helpers/how-to-win";
+import { useEffect, useMemo, useState } from "react";
+
+function getBoardInitValue(initValue: Cells | null) {
+  return Array(9).fill(initValue);
+}
 
 export default function Home() {
-  const [board, setBoard] = useState(Array(9).fill(null));
-  const [xTurn, setXTurn] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [score, setScore] = useState({ X: 0, O: 0, Draw: 0 });
-
-  const winner = howToWin(board);
-  const isDraw = board.every((cell) => cell !== null) && !winner;
+  const [board, setBoard] = useState<Cells[]>(getBoardInitValue(Cells.Empty));
+  const [xTurn, setXTurn] = useState<boolean>(true);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [score, setScore] = useState<{ [key in Scores]: number }>({
+    [Scores.X]: 0,
+    [Scores.O]: 0,
+    [Scores.Draw]: 0,
+  });
+  const winner = useMemo(() => howToWin(board), [board]);
 
   const handleClick = (idx: number) => {
     const updateBoard = [...board];
-    if (updateBoard[idx] || winner) return;
-    updateBoard[idx] = xTurn ? "X" : "O";
+    if (updateBoard[idx] !== Cells.Empty || winner) return;
+    updateBoard[idx] = xTurn ? Cells.X : Cells.O;
     setBoard(updateBoard);
     setXTurn(!xTurn);
   };
-
-  useEffect(() => {
-    if (winner) {
-      setScore((prevScore) => ({
-        ...prevScore,
-        [winner as "X" | "O"]: prevScore[winner as "X" | "O"] + 1,
-      }));
-      setIsModalOpen(true);
-    } else if (isDraw) {
-      setIsModalOpen(true);
-      setScore((prevScore) => ({
-        ...prevScore,
-        Draw: prevScore.Draw + 1,
-      }));
-    }
-  }, [winner, isDraw]);
-
-  useEffect(() => {
-    if (winner || isDraw) {
-      setIsModalOpen(true);
-    }
-  }, [winner, isDraw]);
   const resetGame = () => {
-    setBoard(Array(9).fill(null));
+    setBoard(getBoardInitValue(Cells.Empty));
     setXTurn(true);
+    setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    if (!winner) return;
+    setIsModalOpen(true);
+    setScore((prevScore) => ({
+      ...prevScore,
+      [winner]: prevScore[winner] + 1,
+    }));
+  }, [winner]);
+
   return (
     <>
-      {winner || isDraw ? (
-        <Modal
-          isOpen={isModalOpen}
-          message={winner ? `🎉 Winner: ${winner}!` : "🤝 Draw!"}
-          onClose={resetGame}
-        />
-      ) : null}
-      <div className="flex flex-col text-center">
-        <div className="text-2xl font-bold">
+      <Modal
+        isOpen={isModalOpen}
+        message={
+          !winner
+            ? ""
+            : winner === Scores.Draw
+            ? "🤝 Draw!"
+            : `🎉 Winner: ${winner}!`
+        }
+        onClose={resetGame}
+      />
+      <div className="tw-flex tw-flex-col tw-text-center">
+        <div className="tw-text-2xl tw-font-bold">
           <p>Score</p>
-          <p className="text-blue-600">
+          <p className="tw-text-blue-600">
             X: {score.X} - Draw: {score.Draw} - O: {score.O}
           </p>
         </div>
-        <p className="text-5xl font-bold mb-4">Turn: {xTurn ? "X" : "O"}</p>
+        <p className="tw-text-5xl tw-font-bold tw-mb-4 ">
+          Turn: {xTurn ? Cells.X : Cells.O}
+        </p>
         <Board cells={board} onClick={handleClick}></Board>
       </div>
     </>

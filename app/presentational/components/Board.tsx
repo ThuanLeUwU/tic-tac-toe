@@ -1,11 +1,10 @@
 import React from "react";
 import Cell from "./Cell";
-import "./../app/globals.css";
 
-interface BoardProps {
-  cells: string[]; // Assuming cells contain "X", "O", or ""
+type BoardProps = {
+  cells: string[];
   onClick: (index: number) => void;
-}
+};
 
 const Board: React.FC<BoardProps> = ({ cells, onClick }) => {
   return (
