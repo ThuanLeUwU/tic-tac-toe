@@ -19,6 +19,7 @@ export default function Home() {
     [Scores.O]: 0,
     [Scores.Draw]: 0,
   });
+
   const winner = useMemo(() => howToWin(board), [board]);
 
   const handleClick = (idx: number) => {
