@@ -10,14 +10,24 @@ type CellProps = {
 const Cell: React.FC<CellProps> = ({ value, onClick }) => {
   return (
     <div
-      className="cell tw-flex tw-items-center tw-justify-center"
-      onClick={onClick}>
+      className={classNames(
+        "cell tw-flex tw-items-center tw-justify-center tw-border-4 tw-border-solid tw-transition-all",
+        {
+          "tw-border-blue-600 tw-pointer-events-none tw-bg-transparent":
+            value === Cells.X,
+          "tw-border-red-600 tw-pointer-events-none tw-bg-transparent":
+            value === Cells.O,
+          "hover:tw-border-gradient": value === Cells.Empty,
+        }
+      )}
+      onClick={value === Cells.Empty ? onClick : undefined}>
       {value !== Cells.Empty && (
         <span
           className={classNames("tw-font-bold tw-text-center", {
-            "tw-text-blue-600 tw-text-[8vw] md:tw-text-[5vw]":
+            "tw-text-blue-600 tw-text-[10vw] md:tw-text-[5vw]":
               value === Cells.X,
-            "tw-text-red-600 tw-text-[8vw] md:tw-text-[5vw]": value === Cells.O,
+            "tw-text-red-600 tw-text-[10vw] md:tw-text-[5vw]":
+              value === Cells.O,
           })}>
           {value}
         </span>

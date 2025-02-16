@@ -57,13 +57,19 @@ export default function Home() {
         onClose={resetGame}
       />
       <div className="tw-flex tw-flex-col tw-text-center">
-        <div className="tw-text-2xl tw-font-bold tw-overflow-hidden tw-whitespace-nowrap">
-          <p>Score</p>
-          <p className="tw-text-blue-600">
+        <div className="tw-font-bold tw-overflow-hidden tw-whitespace-nowrap">
+          <p
+            className="tw-text-4xl sm:tw-text-5xl md:tw-text-6xl lg:tw-text-7xl 
+               tw-font-extrabold tw-bg-gradient-to-r 
+               tw-from-blue-500 tw-to-purple-500 
+               tw-bg-clip-text tw-text-transparent">
+            Tic Tac Toe
+          </p>
+          <p className="tw-text-blue-600 tw-text-xl sm:tw-text-2xl md:tw-text-3xl lg:tw-text-4xl">
             X: {score.X} - Draw: {score.Draw} - O: {score.O}
           </p>
         </div>
-        <p className="tw-text-5xl tw-font-bold tw-mb-4 ">
+        <p className="tw-font-bold tw-mb-4 tw-text-2xl sm:tw-text-3xl md:tw-text-4xl lg:tw-text-5xl">
           Turn: {xTurn ? Cells.X : Cells.O}
         </p>
         <Board cells={board} onClick={handleClick}></Board>

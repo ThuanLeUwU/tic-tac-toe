@@ -17,6 +17,24 @@
   box-sizing: border-box;
 }
 
+@keyframes gradientBorder {
+  0% {
+    border-image-source: linear-gradient(90deg, #ff0000, #ff7300);
+  }
+  25% {
+    border-image-source: linear-gradient(90deg, #ff7300, #ffd700);
+  }
+  50% {
+    border-image-source: linear-gradient(90deg, #ffd700, #32cd32);
+  }
+  75% {
+    border-image-source: linear-gradient(90deg, #32cd32, #1e90ff);
+  }
+  100% {
+    border-image-source: linear-gradient(90deg, #1e90ff, #ff0000);
+  }
+}
+
 body {
   display: flex;
   justify-content: center;
@@ -35,9 +53,9 @@ body {
 
 .board {
   margin: 20px;
-  width: 90vw; /* Chiếm 90% chiều rộng màn hình */
-  max-width: 500px; /* Giữ nguyên kích thước tối đa */
-  height: 90vw; /* Giữ tỷ lệ vuông theo chiều rộng */
+  width: 90vw;
+  max-width: 500px;
+  height: 90vw;
   max-height: 500px;
   gap: 5px;
   display: grid;
@@ -52,7 +70,7 @@ body {
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  font-size: 6vw;
+  /* font-size: 6vw; */
   width: 100%;
   height: 100%;
 }
@@ -60,6 +78,10 @@ body {
 /* Thêm hiệu ứng hover trên desktop */
 @media (min-width: 768px) {
   .cell:hover {
+    border: 5px solid transparent;
+    border-image-slice: 1;
+    transition: border 0.3s ease-in-out;
+    animation: gradientBorder 1s infinite linear;
     background-color: rgba(0, 0, 0, 0.1);
   }
 }
