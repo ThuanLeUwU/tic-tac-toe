@@ -5,6 +5,7 @@ import { Cells } from "@/app/constants/cell";
 import { Scores } from "@/app/constants/score";
 import { howToWin } from "@/app/utils/helpers/how-to-win";
 import { useEffect, useMemo, useState } from "react";
+import { useBoolean } from "./business-logic/hooks/useBoolean";
 
 function getBoardInitValue(initValue: Cells | null) {
   return Array(9).fill(initValue);
@@ -12,8 +13,16 @@ function getBoardInitValue(initValue: Cells | null) {
 
 export default function Home() {
   const [board, setBoard] = useState<Cells[]>(getBoardInitValue(Cells.Empty));
-  const [xTurn, setXTurn] = useState<boolean>(true);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const {
+    state: xTurn,
+    setTrue: setXTurnTrue,
+    toggle: toggleXTurn,
+  } = useBoolean(true);
+  const {
+    state: isModalOpen,
+    setTrue: setIsModalOpen,
+    setFalse: setIsModalClose,
+  } = useBoolean(false);
   const [score, setScore] = useState<{ [key in Scores]: number }>({
     [Scores.X]: 0,
     [Scores.O]: 0,
@@ -27,17 +36,17 @@ export default function Home() {
     if (updateBoard[idx] !== Cells.Empty || winner) return;
     updateBoard[idx] = xTurn ? Cells.X : Cells.O;
     setBoard(updateBoard);
-    setXTurn(!xTurn);
+    toggleXTurn();
   };
   const resetGame = () => {
     setBoard(getBoardInitValue(Cells.Empty));
-    setXTurn(true);
-    setIsModalOpen(false);
+    setXTurnTrue();
+    setIsModalClose();
   };
 
   useEffect(() => {
     if (!winner) return;
-    setIsModalOpen(true);
+    setIsModalOpen();
     setScore((prevScore) => ({
       ...prevScore,
       [winner]: prevScore[winner] + 1,
