@@ -13,6 +13,9 @@
     --foreground: #ededed;
   }
 }
+* {
+  box-sizing: border-box;
+}
 
 body {
   display: flex;
@@ -36,7 +39,7 @@ body {
   max-width: 500px; /* Giữ nguyên kích thước tối đa */
   height: 90vw; /* Giữ tỷ lệ vuông theo chiều rộng */
   max-height: 500px;
-  border: 5px solid #ccc;
+  gap: 5px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);

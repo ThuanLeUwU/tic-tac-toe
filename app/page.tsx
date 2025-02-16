@@ -57,7 +57,7 @@ export default function Home() {
         onClose={resetGame}
       />
       <div className="tw-flex tw-flex-col tw-text-center">
-        <div className="tw-text-2xl tw-font-bold">
+        <div className="tw-text-2xl tw-font-bold tw-overflow-hidden tw-whitespace-nowrap">
           <p>Score</p>
           <p className="tw-text-blue-600">
             X: {score.X} - Draw: {score.Draw} - O: {score.O}

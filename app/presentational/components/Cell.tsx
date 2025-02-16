@@ -16,8 +16,8 @@ const Cell: React.FC<CellProps> = ({ value, onClick }) => {
         <span
           className={classNames("tw-font-bold tw-text-center", {
             "tw-text-blue-600 tw-text-[8vw] md:tw-text-[5vw]":
-              value === Cells.X, // X màu xanh
-            "tw-text-red-600 tw-text-[8vw] md:tw-text-[5vw]": value === Cells.O, // O màu đỏ
+              value === Cells.X,
+            "tw-text-red-600 tw-text-[8vw] md:tw-text-[5vw]": value === Cells.O,
           })}>
           {value}
         </span>
